@@ -1,6 +1,8 @@
 package com.codecool.thehistory;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TheHistoryArray implements TheHistory {
 
@@ -11,28 +13,55 @@ public class TheHistoryArray implements TheHistory {
 
     @Override
     public void add(String text) {
-        //TODO: check the TheHistory interface for more information
+        String[] tempArr = text.trim().split("\\s+");
+        String[] resultArr = new String[wordsArray.length+tempArr.length];
+
+        System.arraycopy(wordsArray,0,resultArr,0, wordsArray.length);
+        System.arraycopy(tempArr,0,resultArr,wordsArray.length, tempArr.length);
+        wordsArray = resultArr;
+
+
     }
 
     @Override
     public void removeWord(String wordToBeRemoved) {
-        //TODO: check the TheHistory interface for more information
+        int target = 0; //How many element it will be remove
+
+        for (int i = 0; i < wordsArray.length; i++) {
+            if (wordsArray[i].equals(wordToBeRemoved)) {
+                wordsArray[i] = null;
+                target += 1;
+            }
+        }
+        String[] tempArr = new String[wordsArray.length - target];
+        int count = 0;
+        for (int i = 0; i < wordsArray.length; i++) {
+            if (wordsArray[i] != null) {
+                tempArr[count] = wordsArray[i];
+                count++;
+            }
+        }
+        wordsArray = tempArr;
+
     }
 
     @Override
     public int size() {
-        //TODO: check the TheHistory interface for more information
-        return 0;
+        return wordsArray.length;
     }
 
     @Override
     public void clear() {
-        //TODO: check the TheHistory interface for more information
+        wordsArray = new String[0];
     }
 
     @Override
     public void replaceOneWord(String from, String to) {
-        //TODO: check the TheHistory interface for more information
+        for (int i = 0; i < wordsArray.length; i++) {
+            if (wordsArray[i].equals(from)){
+                wordsArray[i] = to;
+            }
+        }
     }
 
     @Override

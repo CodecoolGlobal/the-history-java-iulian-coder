@@ -24,6 +24,7 @@ public interface TheHistory {
      *
      * @param text: a string containing words separated with spaces
      */
+
     void add(String text);
 
     /**
